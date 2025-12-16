@@ -13,7 +13,12 @@ export default defineConfig({
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
-
+         
+            m.cartographer(),
+          ),
+         
+            m.devBanner(),
+          ),
         ]
       : []),
   ],
