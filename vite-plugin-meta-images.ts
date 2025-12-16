@@ -2,12 +2,16 @@ import type { Plugin } from 'vite';
 import fs from 'fs';
 import path from 'path';
 
+
 export function metaImagesPlugin(): Plugin {
   return {
     name: 'vite-plugin-meta-images',
     transformIndexHtml(html) {
       const baseUrl = getDeploymentUrl();
+      if (!baseUrl) {
      
+        return html;
+      }
 
       // Check if opengraph image exists in public directory
       const publicDir = path.resolve(process.cwd(), 'client', 'public');
@@ -49,8 +53,7 @@ export function metaImagesPlugin(): Plugin {
 }
 
 function getDeploymentUrl(): string | null {
-
-
+ 
   return null;
 }
 
