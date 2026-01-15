@@ -4,6 +4,8 @@ Frontend interface for the Albatross privacy infrastructure on Solana.
 
 This repository contains the web application used to interact with Albatross privacy modules in a safe, minimal, and privacy-preserving way.
 
+![image alt](https://github.com/AlbatrossZK/Frontend/blob/1afa70163a824689e1cdc6a981ec96b9c176cf50/intro.jfif)
+
 ---
 
 ## Why Privacy Is Necessary
