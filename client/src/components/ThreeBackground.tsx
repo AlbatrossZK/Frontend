@@ -112,15 +112,24 @@ export function ThreeBackground() {
     })();
 
     function init() {
-      renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current!, antialias: true, alpha: true });
-      renderer.setClearColor(0xffffff, 1); 
-      camera = new THREE.PerspectiveCamera();
+      try {
+        renderer = new THREE.WebGLRenderer({ 
+          canvas: canvasRef.current!, 
+          antialias: true, 
+          alpha: true,
+          failIfMajorPerformanceCaveat: false
+        });
+        renderer.setClearColor(0xffffff, 1); 
+        camera = new THREE.PerspectiveCamera();
 
-      updateSize();
-      window.addEventListener('resize', updateSize, false);
+        updateSize();
+        window.addEventListener('resize', updateSize, false);
 
-      initScene();
-      animate(0);
+        initScene();
+        animate(0);
+      } catch (error) {
+        console.warn('WebGL initialization failed, skipping 3D background:', error);
+      }
     }
 
     function initScene() {
@@ -220,6 +229,13 @@ export function ThreeBackground() {
       width = window.innerWidth;
       height = window.innerHeight;
       if (renderer) renderer.setSize(width, height);
+      
+      // Update density based on width for ultra-wide screens
+      // Base nx is 120 for standard width (~1440px). Scale it up.
+      // We can't easily re-init the whole scene here without flickering, 
+      // but we can ensure the canvas covers the full window.
+      // The CSS 'fixed inset-0 w-full h-full' handles the canvas element size.
+      // The renderer.setSize handles the internal resolution.
     }
 
     init();
