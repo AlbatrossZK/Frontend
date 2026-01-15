@@ -70,6 +70,8 @@ Support for Token-2022 USDC transfers with encrypted balances visible only to in
 ### ZK Access Pass  
 Zero-knowledge eligibility verification without exposing wallet data or transaction history.
 
+![image alt](https://github.com/AlbatrossZK/Frontend/blob/7a052547af7fb281be284bb15a62621e73aad2d9/AlbaTech.jfif)
+
 ---
 
 ## Repository Scope
