@@ -9,6 +9,89 @@
   font-style: normal;
 }
 
+/* Bubble animation for Open App button */
+.bubbles {
+  --c1: #ffffff;
+  --c2: #a988d4;
+  --size-letter: 14px;
+  padding: 0.5em 1em;
+  font-size: var(--size-letter);
+  background-color: transparent;
+  border: calc(var(--size-letter) / 6) solid var(--c2);
+  border-radius: 9999px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: 300ms cubic-bezier(0.83, 0, 0.17, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bubbles > .text {
+  font-weight: 700;
+  color: var(--c2);
+  position: relative;
+  z-index: 1;
+  transition: color 700ms cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.bubbles > .arrow-icon {
+  color: var(--c2);
+  position: relative;
+  z-index: 1;
+  transition: color 700ms cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.bubbles:hover .arrow-icon {
+  color: var(--c1);
+}
+
+.bubbles::before {
+  top: 0;
+  left: 0;
+}
+
+.bubbles::after {
+  top: 100%;
+  left: 100%;
+}
+
+.bubbles::before,
+.bubbles::after {
+  content: "";
+  width: 150%;
+  aspect-ratio: 1/1;
+  scale: 0;
+  transition: 1000ms cubic-bezier(0.76, 0, 0.24, 1);
+  background-color: var(--c2);
+  border-radius: 50%;
+  position: absolute;
+  translate: -50% -50%;
+}
+
+.bubbles:hover .text {
+  color: var(--c1);
+}
+
+.bubbles:hover::before,
+.bubbles:hover::after {
+  scale: 1;
+}
+
+.bubbles:active {
+  scale: 0.98;
+  filter: brightness(0.9);
+}
+
+/* Responsive sizing for larger screens */
+@media (min-width: 1024px) {
+  .bubbles {
+    --size-letter: 16px;
+    padding: 0.65em 1.25em;
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -204,9 +287,14 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: 'Test Sohne Breit', 'Host Grotesk', sans-serif !important;
   }
-  body {
+  html, body {
     @apply font-sohne antialiased bg-background text-foreground;
+    font-family: 'Test Sohne Breit', 'Host Grotesk', sans-serif !important;
+  }
+  h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label, li, ul, ol, table, th, td {
+    font-family: 'Test Sohne Breit', 'Host Grotesk', sans-serif !important;
   }
 }
 
@@ -320,4 +408,62 @@
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
   }
+}
+
+/* Privy Modal Custom Styling */
+#privy-modal-content,
+#privy-dialog,
+[data-privy-dialog],
+[class*="privy"] {
+  --privy-color-background: #0d0d0d !important;
+  --privy-color-background-2: #1a1a1a !important;
+  --privy-color-foreground: #ffffff !important;
+  --privy-color-foreground-2: #a0a0a0 !important;
+  --privy-color-foreground-3: #666666 !important;
+  --privy-color-accent: #a988d4 !important;
+  --privy-color-accent-light: #c4a8e8 !important;
+  --privy-color-accent-dark: #8a6bb8 !important;
+  --privy-color-error: #ff6b6b !important;
+  --privy-color-success: #69db7c !important;
+  --privy-border-radius-sm: 8px !important;
+  --privy-border-radius-md: 12px !important;
+  --privy-border-radius-lg: 16px !important;
+}
+
+[data-privy-dialog] > div,
+#privy-modal-content > div {
+  background: #0d0d0d !important;
+  border: 1px solid rgba(169, 136, 212, 0.3) !important;
+  border-radius: 16px !important;
+}
+
+[data-privy-dialog] button[data-testid],
+#privy-modal-content button {
+  background: rgba(169, 136, 212, 0.1) !important;
+  border: 1px solid rgba(169, 136, 212, 0.3) !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-privy-dialog] button[data-testid]:hover,
+#privy-modal-content button:hover {
+  background: rgba(169, 136, 212, 0.25) !important;
+  border-color: #a988d4 !important;
+}
+
+[data-privy-dialog] h1,
+[data-privy-dialog] h2,
+[data-privy-dialog] h3,
+#privy-modal-content h1,
+#privy-modal-content h2,
+#privy-modal-content h3 {
+  color: #ffffff !important;
+  font-family: 'Test Sohne Breit', 'Host Grotesk', sans-serif !important;
+}
+
+[data-privy-dialog] p,
+[data-privy-dialog] span,
+#privy-modal-content p,
+#privy-modal-content span {
+  color: #a0a0a0 !important;
 }
