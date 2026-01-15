@@ -2,14 +2,15 @@ import type { Plugin } from 'vite';
 import fs from 'fs';
 import path from 'path';
 
-
+/**
+ * Vite plugin that updates og:image and twitter:image meta tags
+ */
 export function metaImagesPlugin(): Plugin {
   return {
     name: 'vite-plugin-meta-images',
     transformIndexHtml(html) {
       const baseUrl = getDeploymentUrl();
       if (!baseUrl) {
-     
         return html;
       }
 
@@ -53,7 +54,13 @@ export function metaImagesPlugin(): Plugin {
 }
 
 function getDeploymentUrl(): string | null {
- 
+    log('[meta-images] using internal app domain:', url);
+    return url;
+  }
+    log('[meta-images] using dev domain:', url);
+    return url;
+  }
+
   return null;
 }
 
