@@ -6,6 +6,29 @@ import { createServer } from "http";
 const app = express();
 const httpServer = createServer(app);
 
+// Remove restrictive headers and allow Privy/wallet extensions
+app.use((req, res, next) => {
+  // Remove cross-origin isolation that blocks wallet extensions
+  res.removeHeader('Cross-Origin-Opener-Policy');
+  res.removeHeader('Cross-Origin-Embedder-Policy');
+  res.removeHeader('Cross-Origin-Resource-Policy');
+  
+  // Set permissive CSP for wallet authentication
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; " +
+    "script-src * 'unsafe-inline' 'unsafe-eval'; " +
+    "style-src * 'unsafe-inline'; " +
+    "img-src * data: blob:; " +
+    "font-src * data:; " +
+    "frame-src *; " +
+    "child-src * blob:; " +
+    "connect-src * wss: ws:; " +
+    "worker-src * blob:;"
+  );
+  next();
+});
+
 declare module "http" {
   interface IncomingMessage {
     rawBody: unknown;
